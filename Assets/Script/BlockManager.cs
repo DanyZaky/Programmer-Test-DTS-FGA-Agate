@@ -9,58 +9,60 @@ public class BlockManager : MonoBehaviour
 
     private void Start()
     {
-        currentBlockPosition[0] = GameObject.FindWithTag("Bishop");
+        currentBlockPosition[0] = GameObject.FindWithTag("Knight");
         currentBlockPosition[1] = GameObject.FindWithTag("Dragon");
-        currentBlockPosition[2] = GameObject.FindWithTag("Knight");
+        currentBlockPosition[2] = GameObject.FindWithTag("Bishop");
         currentBlockPosition[3] = GameObject.FindWithTag("Rock");
+
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void onClickBlock()
     {
-        BlockSprite.Instance.blockType = Random.Range(0, 3);
-
-        if (BlockSprite.Instance.blockType == 0)
-        {
-            BlockSprite.Instance.score += 2;
-            currentBlockPosition[0].GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
-
-            currentBlockPosition[0].SetActive(true);
-            currentBlockPosition[1].SetActive(false);
-            currentBlockPosition[2].SetActive(false);
-            currentBlockPosition[3].SetActive(false);
-        }
-        else if (BlockSprite.Instance.blockType == 1)
-        {
-            BlockSprite.Instance.score += 1;
-            currentBlockPosition[1].GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
-
-            currentBlockPosition[0].SetActive(false);
-            currentBlockPosition[1].SetActive(true);
-            currentBlockPosition[2].SetActive(false);
-            currentBlockPosition[3].SetActive(false);
-        }
-        else if (BlockSprite.Instance.blockType == 2)
-        {
-            BlockSprite.Instance.score += 1;
-            currentBlockPosition[2].GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
-
-            currentBlockPosition[0].SetActive(false);
-            currentBlockPosition[1].SetActive(false);
-            currentBlockPosition[2].SetActive(true);
-            currentBlockPosition[3].SetActive(false);
-        }
-        else if (BlockSprite.Instance.blockType == 3)
-        {
-            BlockSprite.Instance.score += 2;
-            currentBlockPosition[3].GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
-
-            currentBlockPosition[0].SetActive(false);
-            currentBlockPosition[1].SetActive(false);
-            currentBlockPosition[2].SetActive(false);
-            currentBlockPosition[3].SetActive(true);
-        }
-
-        this.gameObject.GetComponent<Image>().sprite = BlockSprite.Instance.currentBlockSprite;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        this.gameObject.GetComponent<Image>().sprite = GameManager.Instance.currentBlockSprite;
         this.gameObject.GetComponent<Button>().enabled = false;
+
+        if (GameManager.Instance.blockType == 0)
+        {
+            BlockAttackZoneType(0, 2);
+        }
+        else if (GameManager.Instance.blockType == 1)
+        {
+            BlockAttackZoneType(1, 1);
+        }
+        else if (GameManager.Instance.blockType == 2)
+        {
+            BlockAttackZoneType(2, 1);
+        }
+        else if (GameManager.Instance.blockType == 3)
+        {
+            BlockAttackZoneType(3, 2);
+        }
+
+        GameManager.Instance.timePlacing = 10;
+        GameManager.Instance.blockType = Random.Range(0, 4);
+    }
+
+    private void BlockAttackZoneType(int index, int score)
+    {
+        GameManager.Instance.score += score;
+        currentBlockPosition[index].GetComponent<RectTransform>().anchoredPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
+
+        for (int i = 0; i < 4; i++)
+        {
+            currentBlockPosition[i].SetActive(false);
+        }
+
+        currentBlockPosition[index].SetActive(true);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "AttackZone")
+        {
+            Debug.Log("Lose");
+            GameManager.Instance.loseCondition = true;
+        }
     }
 }

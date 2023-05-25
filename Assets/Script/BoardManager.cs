@@ -6,11 +6,20 @@ using UnityEngine.UI;
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Image blockTypeImage;
-    
     [SerializeField] private GameObject blockPrefabs;
     [SerializeField] private Transform boardParent;
 
     void Start()
+    {
+        SpawnBoard();
+    }
+
+    void Update()
+    {
+        BoardNextInfo();
+    }
+
+    private void SpawnBoard()
     {
         for (int i = 0; i < 54; i++)
         {
@@ -18,25 +27,25 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void Update()
+    private void BoardNextInfo()
     {
-        if (BlockSprite.Instance.blockType == 0)
+        if (GameManager.Instance.blockType == 0)
         {
-            blockTypeImage.sprite = BlockSprite.Instance.bishop;
+            blockTypeImage.sprite = GameManager.Instance.bishop;
         }
-        else if (BlockSprite.Instance.blockType == 1)
+        else if (GameManager.Instance.blockType == 1)
         {
-            blockTypeImage.sprite = BlockSprite.Instance.dragon;
+            blockTypeImage.sprite = GameManager.Instance.dragon;
         }
-        else if (BlockSprite.Instance.blockType == 2)
+        else if (GameManager.Instance.blockType == 2)
         {
-            blockTypeImage.sprite = BlockSprite.Instance.knight;
+            blockTypeImage.sprite = GameManager.Instance.knight;
         }
-        else if (BlockSprite.Instance.blockType == 3)
+        else if (GameManager.Instance.blockType == 3)
         {
-            blockTypeImage.sprite = BlockSprite.Instance.rock;
+            blockTypeImage.sprite = GameManager.Instance.rock;
         }
 
-        BlockSprite.Instance.currentBlockSprite = blockTypeImage.sprite;
+        GameManager.Instance.currentBlockSprite = blockTypeImage.sprite;
     }
 }

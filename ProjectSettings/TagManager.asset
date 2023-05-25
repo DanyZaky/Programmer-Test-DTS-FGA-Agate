@@ -8,6 +8,8 @@ TagManager:
   - Bishop
   - Dragon
   - Rock
+  - Block
+  - AttackZone
   layers:
   - Default
   - TransparentFX
