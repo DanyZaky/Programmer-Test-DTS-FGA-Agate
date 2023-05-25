@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] private Sprite bishop, dragon, knight, rock;
-    [SerializeField] private int blockType;
     [SerializeField] private Image blockTypeImage;
     
     [SerializeField] private GameObject blockPrefabs;
@@ -18,27 +16,27 @@ public class BoardManager : MonoBehaviour
         {
             Instantiate(blockPrefabs, boardParent);
         }
-
-        blockType = Random.Range(0, 3);
     }
 
     void Update()
     {
-        if (blockType == 0)
+        if (BlockSprite.Instance.blockType == 0)
         {
-            blockTypeImage.sprite = bishop;
+            blockTypeImage.sprite = BlockSprite.Instance.bishop;
         }
-        else if (blockType == 1)
+        else if (BlockSprite.Instance.blockType == 1)
         {
-            blockTypeImage.sprite = dragon;
+            blockTypeImage.sprite = BlockSprite.Instance.dragon;
         }
-        else if (blockType == 2)
+        else if (BlockSprite.Instance.blockType == 2)
         {
-            blockTypeImage.sprite = knight;
+            blockTypeImage.sprite = BlockSprite.Instance.knight;
         }
-        else if (blockType == 3)
+        else if (BlockSprite.Instance.blockType == 3)
         {
-            blockTypeImage.sprite = rock;
+            blockTypeImage.sprite = BlockSprite.Instance.rock;
         }
+
+        BlockSprite.Instance.currentBlockSprite = blockTypeImage.sprite;
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8295314053332401056}
   - component: {fileID: 416587134653245337}
   - component: {fileID: 1353961400615910861}
+  - component: {fileID: 5302214250207446123}
   m_Layer: 5
   m_Name: Block
   m_TagString: Untagged
@@ -119,4 +120,28 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 416587134653245337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5302214250207446123}
+        m_TargetAssemblyTypeName: BlockManager, Assembly-CSharp
+        m_MethodName: onClickBlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5302214250207446123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696739125338120162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1717f1e06bb189d48a38d867652d18a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
